@@ -4,6 +4,7 @@
 #include <iostream>
 #include <vector>
 #include "User.h"
+#include "AuxiliaryMethods.h"
 
 using namespace std;
 

@@ -1,5 +1,4 @@
 #include "UserManager.h"
-//PO DODANIU METOD POMOCNICZYCH ZAMIENIC GETLINE
 
 void UserManager::registerUser(){
     User user = getNewUserData();
@@ -16,25 +15,23 @@ User UserManager::getNewUserData(){
     user.setUserID(getNewUserID());
 
     cout << "Podaj imie: ";
-    getline(cin, firstName);
+    firstName = AuxiliaryMethods::loadLine();
     user.setFirstName(firstName);
 
     cout << "Podaj nazwisko: ";
-    getline(cin, surname);
+    surname = AuxiliaryMethods::loadLine();
     user.setSurname(surname);
 
     do
     {
         cout << "Podaj login: ";
-        //login = MetodyPomocnicze::wczytajLinie();
-        getline(cin, login);
+        login = AuxiliaryMethods::loadLine();
         user.setLogin(login);
 
     } while (loginExists(user.getLogin()));
 
     cout << "Podaj haslo: ";
-    //password = MetodyPomocnicze::wczytajLinie();
-    getline(cin, password);
+    password = AuxiliaryMethods::loadLine();
     user.setPassword(password);
 
     return user;
@@ -59,14 +56,14 @@ int UserManager::checkLoginAndPassword() {
     string login = "", password = "";
 
     cout << endl << "Podaj login: ";
-    getline(cin,login);
+    login = AuxiliaryMethods::loadLine();
 
     vector <User>::iterator itr = users.begin();
     while (itr != users.end()) {
         if (itr -> getLogin() == login) {
             for (int triesLeft = 3; triesLeft > 0; triesLeft--) {
                 cout << "Podaj haslo. Pozostalo prob: " << triesLeft << ": ";
-                getline(cin, password);
+                password = AuxiliaryMethods::loadLine();
 
                 if (itr -> getPassword() == password) {
                     cout << endl << "Zalogowales sie." << endl << endl;
@@ -100,7 +97,7 @@ int UserManager::getNewUserID() {
 void UserManager::changeLoggedUserPassword(){
     string newPassword = "";
     cout << "Podaj nowe haslo: ";
-    getline(cin, newPassword);
+    newPassword = AuxiliaryMethods::loadLine();
 
     for (vector <User>::iterator itr = users.begin(); itr != users.end(); itr++) {
         if (itr -> getUserID() == loggedUserID) {

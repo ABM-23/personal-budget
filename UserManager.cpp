@@ -3,6 +3,8 @@
 void UserManager::registerUser(){
     User user = getNewUserData();
     users.push_back(user);
+    fileWithUsers.addUserToFile(user);
+
     cout << endl << "Konto zalozono pomyslnie" << endl << endl;
     system("pause");
 }
@@ -106,4 +108,5 @@ void UserManager::changeLoggedUserPassword(){
             system("pause");
         }
     }
+    fileWithUsers.editPasswordInFile(loggedUserID, newPassword);
 }

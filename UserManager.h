@@ -4,11 +4,13 @@
 #include <iostream>
 #include <vector>
 #include "User.h"
+#include "FileWithUsers.h"
 #include "AuxiliaryMethods.h"
 
 using namespace std;
 
 class UserManager {
+    FileWithUsers fileWithUsers;
     int loggedUserID;
     vector<User> users;
 
@@ -18,7 +20,8 @@ class UserManager {
     int checkLoginAndPassword();
 
     public:
-    UserManager() {
+    UserManager(string usersFileName) : fileWithUsers(usersFileName) {
+        users = fileWithUsers.loadUsersFromFile();
         loggedUserID = 0;
     }
 

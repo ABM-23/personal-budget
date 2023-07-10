@@ -4,14 +4,18 @@
 
 using namespace std;
 
-int main() {
-    string a ="127,50";
-    string b = "";
-    float c;
+int main(){
+    UserManager userManager("Users.xml");
+    //userManager.registerUser();
+    while(!userManager.isUserLoggedIn()){
+            userManager.loginUser();
+    }
 
-    b = AuxiliaryMethods::changeCommaToDot(a);
-    cout << b;
-    c = stof(b);
-    cout << c;
+    //userManager.changeLoggedUserPassword();
 
+    cout << "dupa";
+
+
+    return 0;
 }
+

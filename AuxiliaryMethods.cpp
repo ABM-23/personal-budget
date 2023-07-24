@@ -23,7 +23,11 @@ string AuxiliaryMethods::convertDateToString(int dateInt){
 
 }
 int AuxiliaryMethods::convertStringToDate(string dateString){
+    int year = getYear(dateString);
+    int month = getMonth(dateString);
+    int day = getDay(dateString);
 
+    return (10000 * year + 100 * month + day);
 }
 string AuxiliaryMethods::changeFirstLetterForUpperCaseAndOthersForLowerCase(string text) {
     if (!text.empty()) {
@@ -74,4 +78,28 @@ int AuxiliaryMethods::loadInteger() {
         cout << "To nie jest liczba. Wpisz ponownie. " << endl;
     }
     return number;
+}
+int AuxiliaryMethods::getYear(string date) {
+    string year = "";
+
+    for (int i = 0; i < 4; i++) {
+        if (isdigit(date[i])) year += date[i];
+    }
+    return convertStringToInteger(year);
+}
+int AuxiliaryMethods::getMonth(string date){
+    string month = "";
+
+    for (int i = 5; i < 7; i++) {
+        if (isdigit(date[i])) month += date[i];
+    }
+    return convertStringToInteger(month);
+}
+int AuxiliaryMethods::getDay(string date){
+    string day = "";
+
+    for (int i = 8; i < 10; i++) {
+        if (isdigit(date[i])) day += date[i];
+    }
+    return convertStringToInteger(day);
 }

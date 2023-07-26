@@ -19,6 +19,7 @@ class CashFlowManager {
 
     CashFlow getNewCashFlowData();
     void printCashflowData(CashFlow cashFlow);
+    void printBalance(int firstDate,int lastDate);
     void sortByDate(vector<CashFlow> dataToSort);
     int getDateFromUser();
     float getAmountFromUser();

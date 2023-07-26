@@ -9,12 +9,15 @@ int main(){
 
     CashFlowManager manag;
 
-    manag.addExpense();
+    for (int i = 0; i < 2; i++) {
+
+        manag.addExpense();
+        manag.addIncome();
+    }
+
+    manag.printCurrentMonthBalance();
 
 
-    string sztring = "1995-23-24";
-
-    cout << AuxiliaryMethods::convertStringToDate(sztring);
 
     return 0;
 }

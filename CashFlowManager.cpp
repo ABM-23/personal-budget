@@ -31,7 +31,6 @@ CashFlow CashFlowManager::getNewCashFlowData(){
 
         default:
             cout << "Nieprawidlowy wybor, wybierz opcje 1 lub 2";
-
         }
     }
 
@@ -42,12 +41,12 @@ CashFlow CashFlowManager::getNewCashFlowData(){
     newCashFlow.setAmount(getAmountFromUser());
     system("cls");
 
-   return newCashFlow;
+    return newCashFlow;
 }
 void CashFlowManager::printCashflowData(CashFlow cashFlow){
     cout << "Data :" << cashFlow.getDate() << endl;
-    cout << "Nazwa :" << cashFlow.getItemName() << endl
-    cout << "Nazwa :" << cashFlow.getAmount() << endl
+    cout << "Nazwa :" << cashFlow.getItemName() << endl;
+    cout << "Kwota :" << cashFlow.getAmount() << endl;
 
 }
 void CashFlowManager::sortByDate(vector<CashFlow> dataToSort){
@@ -101,11 +100,69 @@ void CashFlowManager::addExpense(){
     expenses.push_back(newExpense);
     //fileWithExpenses.addCashFlow(newExpense);
 }
+void CashFlowManager::printBalance(int firstDate,int lastDate){
+    int incomeValue = 0;
+    int expensesValue = 0;
+
+    cout << "=================================================================" << endl;
+    cout << "PRZYCHODY:" << endl;
+
+    vector <CashFlow>::iterator itr = income.begin();
+    while (itr != income.end()) {
+
+        if (( itr -> getDate() >= firstDate) && (itr -> getDate() <= lastDate)) {
+        printCashflowData(*itr);
+        incomeValue += itr -> getAmount();
+        }
+        itr++;
+    }
+    if (incomeValue == 0) cout << endl << "Brak przychodow spelniajacych kryteria!" << endl;
+
+    cout << "=================================================================" << endl;
+    cout << "WYDATKI:" << endl;
+
+    itr = expenses.begin();
+    while (itr != expenses.end()) {
+
+        if (( itr -> getDate() >= firstDate) && (itr -> getDate() <= lastDate)) {
+            printCashflowData(*itr);
+            expensesValue += itr -> getAmount();
+        }
+        itr++;
+    }
+    if (expensesValue == 0) cout << endl << "Brak wydatkow spelniajacych kryteria!" << endl;
+    cout << "=================================================================" << endl;
+
+    cout << "Suma przychodow : " << incomeValue << endl;
+    cout << "Suma wydatkow   : " << expensesValue << endl << endl;
+
+    cout << "Bilans okresu   : " << incomeValue - expensesValue << endl;
+}
 void CashFlowManager::printCurrentMonthBalance(){
+    int today = getTodaysDate();
+    int firstDay = 100 * (today / 100) + 1;
+    int lastDay  = 100 * (today / 100) + 31;
+
+    printBalance(firstDay, lastDay);
 }
 void CashFlowManager::printLastMonthBalance(){
+    int today = getTodaysDate();
+    int firstDay = 100 * (today / 100 - 1) + 1;
+    int lastDay = 100 * (today / 100 - 1) + 31;
+
+    printBalance(firstDay, lastDay);
 }
 void CashFlowManager::printBalanceFromCustomRange(){
+    cout <<  "Wyswietlone zostana przychody oraz wydatki ktore wystapily pomiedzy dwoma wprowadzonymi datami" << endl << endl;
+
+    cout << "Podaj pierwsza date" << endl;
+    int firstDate = getDateFromUser();
+
+    cout << "Podaj druga date" << endl;
+    int secondDate = getDateFromUser();
+
+    if(firstDate <= secondDate) printBalance(firstDate, secondDate);
+    else  printBalance(secondDate, firstDate);
 }
 bool CashFlowManager::isLeapYear(int year){
     if( (year % 4 == 0 && year % 100 != 0) || year % 400 == 0) return true;

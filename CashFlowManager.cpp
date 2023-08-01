@@ -44,12 +44,14 @@ CashFlow CashFlowManager::getNewCashFlowData(){
     return newCashFlow;
 }
 void CashFlowManager::printCashflowData(CashFlow cashFlow){
-    cout << "Data :" << cashFlow.getDate() << endl;
+    cout << endl;
+    cout << "Data  :" << cashFlow.getDate() << endl;
     cout << "Nazwa :" << cashFlow.getItemName() << endl;
     cout << "Kwota :" << cashFlow.getAmount() << endl;
 
 }
-void CashFlowManager::sortByDate(vector<CashFlow> dataToSort){
+void CashFlowManager::sortByDate(vector<CashFlow> &dataToSort){
+    sort(dataToSort.begin(), dataToSort.end());
 }
 int CashFlowManager::getDateFromUser(){
     string dateString = "";

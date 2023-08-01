@@ -30,3 +30,6 @@ int CashFlow::getDate(){
 void CashFlow::setDate(int newDate){
     date = newDate;
 }
+bool CashFlow::operator <  (CashFlow& cashFlow) {
+    return (date < cashFlow.getDate());
+}

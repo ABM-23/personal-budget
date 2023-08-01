@@ -13,6 +13,9 @@ class CashFlow {
     int date;
 
     public:
+
+    bool operator < (CashFlow& cashFlow);
+
     int getUserID();
     void setUserID(int newUserID);
 

@@ -1,19 +1,22 @@
 #include <iostream>
 #include "UserManager.h"
+#include "CashFlowManager.h"
 #include "AuxiliaryMethods.h"
 
 using namespace std;
 
 int main(){
-    UserManager userManager("Users.xml");
-    //userManager.registerUser();
-    while(!userManager.isUserLoggedIn()){
-            userManager.loginUser();
+
+    CashFlowManager manag;
+
+    for (int i = 0; i < 1; i++) {
+
+        manag.addExpense();
+        manag.addIncome();
     }
 
-    //userManager.changeLoggedUserPassword();
+    manag.printCurrentMonthBalance();
 
-    cout << "dupa";
 
 
     return 0;

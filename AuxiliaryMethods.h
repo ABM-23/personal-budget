@@ -19,5 +19,8 @@ public:
     static string loadLine();
     static char loadChar();
     static int loadInteger();
+    static int getYear(string date);
+    static int getMonth(string date);
+    static int getDay(string date);
 };
 #endif

@@ -20,7 +20,10 @@ int AuxiliaryMethods::convertCharToInteger(char character){
     return character - 48;
 }
 string AuxiliaryMethods::convertDateToString(int dateInt){
-
+    string date =  convertIntegerToString(dateInt);
+    date.insert(4,"-");
+    date.insert(7,"-");
+    return date;
 }
 int AuxiliaryMethods::convertStringToDate(string dateString){
     int year = getYear(dateString);

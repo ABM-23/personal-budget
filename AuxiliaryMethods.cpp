@@ -42,7 +42,7 @@ string AuxiliaryMethods::changeFirstLetterForUpperCaseAndOthersForLowerCase(stri
 string AuxiliaryMethods::changeCommaToDot(string text){
     string changedText;
 
-    for (int i = 0; i < text.length(); i++){
+    for (int i = 0; i < (int)text.length(); i++){
         if (text[i] == ',') changedText += '.';
         else  changedText += text[i];
     }

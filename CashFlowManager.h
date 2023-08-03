@@ -5,15 +5,17 @@
 #include <vector>
 #include <time.h>
 #include "CashFlow.h"
-//#include "FileWithCashFlow.h"
+#include "FileWithCashFlow.h"
 #include "AuxiliaryMethods.h"
 
 using namespace std;
 
 class CashFlowManager {
     const int LOGGED_IN_USER_ID;
-    //FileWithCashFlow fileWithIncome;
-    //FileWithCashFlow fileWithExpenses;
+    FileWithCashFlow fileWithExpenses;
+    FileWithCashFlow fileWithIncome;
+    int lastIncomeID;
+    int lastExpenseID;
     vector<CashFlow> expenses;
     vector<CashFlow> income;
 
@@ -29,7 +31,13 @@ class CashFlowManager {
     int howManyDaysInMonth(int month, int year);
 
     public:
-    CashFlowManager() : LOGGED_IN_USER_ID(0){
+    CashFlowManager(int loggedInUserID, string expensesFileName, string incomeFileName) : LOGGED_IN_USER_ID(loggedInUserID), fileWithExpenses(expensesFileName), fileWithIncome(incomeFileName) {
+    income = fileWithIncome.loadCashFlowsFromFile(LOGGED_IN_USER_ID);
+    sortByDate(income);
+    expenses = fileWithExpenses.loadCashFlowsFromFile(LOGGED_IN_USER_ID);
+    sortByDate(expenses);
+    lastIncomeID = fileWithIncome.getLastCashFlowID();
+    lastExpenseID = fileWithExpenses.getLastCashFlowID();
     }
 
     int getTodaysDate();

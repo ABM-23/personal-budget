@@ -1,5 +1,4 @@
 #include "CashFlowManager.h"
-#include "conio.h"
 
 CashFlow CashFlowManager::getNewCashFlowData(){
     char choice = '0';
@@ -45,7 +44,7 @@ CashFlow CashFlowManager::getNewCashFlowData(){
 }
 void CashFlowManager::printCashflowData(CashFlow cashFlow){
     cout << endl;
-    cout << "Data  :" << cashFlow.getDate() << endl;
+    cout << "Data  :" << AuxiliaryMethods::convertDateToString(cashFlow.getDate()) << endl;
     cout << "Nazwa :" << cashFlow.getItemName() << endl;
     cout << "Kwota :" << cashFlow.getAmount() << endl;
 
@@ -71,7 +70,6 @@ int CashFlowManager::getTodaysDate(){
 
     return date -> tm_mday +(date -> tm_mon + 1) * 100 + (date -> tm_year + 1900) * 10000;
 }
-
 float CashFlowManager::getAmountFromUser(){
     float amount = 0;
     bool getSuccesfull = false;
@@ -90,22 +88,23 @@ float CashFlowManager::getAmountFromUser(){
 }
 void CashFlowManager::addIncome(){
     CashFlow newIncome = getNewCashFlowData();
-    if (income.empty()) newIncome.setCashFlowID(1);
-    else newIncome.setCashFlowID(income.back().getCashFlowID() + 1);
+    newIncome.setCashFlowID(++lastIncomeID);
     income.push_back(newIncome);
-    //fileWithIncome.addCashFlow(newIncome);
+    fileWithIncome.addCashFlowToFile(newIncome);
+    sortByDate(income);
 }
 void CashFlowManager::addExpense(){
     CashFlow newExpense = getNewCashFlowData();
-    if (expenses.empty()) newExpense.setCashFlowID(1);
-    else newExpense.setCashFlowID(expenses.back().getCashFlowID() + 1);
+    newExpense.setCashFlowID(++lastExpenseID);
     expenses.push_back(newExpense);
-    //fileWithExpenses.addCashFlow(newExpense);
+    fileWithExpenses.addCashFlowToFile(newExpense);
+    sortByDate(expenses);
 }
 void CashFlowManager::printBalance(int firstDate,int lastDate){
-    int incomeValue = 0;
-    int expensesValue = 0;
+    float incomeValue = 0;
+    float expensesValue = 0;
 
+    system("cls");
     cout << "=================================================================" << endl;
     cout << "PRZYCHODY:" << endl;
 
@@ -139,6 +138,8 @@ void CashFlowManager::printBalance(int firstDate,int lastDate){
     cout << "Suma wydatkow   : " << expensesValue << endl << endl;
 
     cout << "Bilans okresu   : " << incomeValue - expensesValue << endl;
+
+    system("pause");
 }
 void CashFlowManager::printCurrentMonthBalance(){
     int today = getTodaysDate();
